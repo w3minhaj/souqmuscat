@@ -1,3 +1,6 @@
+import en from "./locales/en.js";
+import ar from "./locales/ar.js";
+
 export default {
   // Global page headers (https://go.nuxtjs.dev/config-head)
   head: {
@@ -11,12 +14,13 @@ export default {
   },
 
   // Global CSS (https://go.nuxtjs.dev/config-css)
-  css: ["~/assets/main.css"],
+  css: ["~/assets/main.css", "swiper/css/swiper.css"],
 
   // Plugins to run before rendering page (https://go.nuxtjs.dev/config-plugins)
   plugins: [
     { src: "~/plugins/persistedState.client.js" },
-    "~/plugins/vuesax.js",
+    "~/plugins/vuesax.client.js",
+    { src: "~/plugins/vue-awesome-swiper.js", mode: "client" },
   ],
 
   // Auto import components (https://go.nuxtjs.dev/config-components)
@@ -33,7 +37,21 @@ export default {
     // https://go.nuxtjs.dev/axios
     "@nuxtjs/axios",
     "@nuxtjs/proxy",
+    "nuxt-i18n",
   ],
+
+  i18n: {
+    locales: [
+      { code: "en", iso: "en-US" },
+      { code: "ar", iso: "ar-OM" },
+    ],
+    defaultLocale: "ar",
+    langDir: "locales/",
+    vueI18n: {
+      fallbackLocale: "en",
+      messages: { en, ar },
+    },
+  },
 
   // Axios module configuration (https://go.nuxtjs.dev/config-axios)
   axios: {

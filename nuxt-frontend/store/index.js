@@ -13,19 +13,19 @@ export const actions = {
   removeFromCart({ commit }, product) {
     commit("removeFromCart", product);
   },
-  async login({ commit }, { email, password }) {
-    const res = await this.$axios.$post(
-      "/api/users/login",
-      { email, password },
-      { headers: { "Content-Type": "application/json" } }
-    );
-    commit("addUser", res);
-    this.$router.push("/admin/orders");
-  },
-  logout({ commit }) {
-    commit("removeUser");
-    this.$router.push("/admin/login");
-  },
+  // async login({ commit }, { email, password }) {
+  //   const res = await this.$axios.$post(
+  //     "/api/users/login",
+  //     { email, password },
+  //     { headers: { "Content-Type": "application/json" } }
+  //   );
+  //   commit("addUser", res);
+  //   this.$router.push("/admin/orders");
+  // },
+  // logout({ commit }) {
+  //   commit("removeUser");
+  //   this.$router.push("/admin/login");
+  // },
 };
 
 export const mutations = {
@@ -43,7 +43,6 @@ export const mutations = {
     state.cart.splice(state.cart.indexOf(productInCart), 1);
   },
   addUser(state, user) {
-    console.log(user);
     state.user = user;
   },
   removeUser(state) {

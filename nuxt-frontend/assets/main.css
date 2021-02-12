@@ -6,9 +6,17 @@
   src: url("~assets/fonts/Poppins-Regular.ttf") format("truetype");
 }
 
+@font-face {
+  font-family: "Cairo";
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url("~assets/fonts/Cairo-Regular.ttf") format("truetype");
+}
+
 html {
   font-family: Poppins, "Source Sans Pro", -apple-system, BlinkMacSystemFont,
-    "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+    Cairo, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
   font-size: 16px;
   word-spacing: 1px;
   -ms-text-size-adjust: 100%;
@@ -18,6 +26,22 @@ html {
   box-sizing: border-box;
 }
 
+::-webkit-scrollbar {
+  width: 5px;
+  height: 5px;
+  display: block;
+  background: #fff;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #2c3e50;
+  border-radius: 5px;
+}
+
+::selection {
+  background: rgba(37, 100, 255, 0.15);
+}
+
 *,
 *::before,
 *::after {
@@ -25,9 +49,132 @@ html {
   margin: 0;
   padding: 0;
   font-family: inherit;
+  scrollbar-width: thin;
 }
 
 button {
   font-family: Poppins, "Source Sans Pro", -apple-system, BlinkMacSystemFont,
-    "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+    Cairo, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+}
+
+html:lang(ar) {
+  font-family: Cairo;
+}
+
+button:lang(ar) {
+  font-family: Cairo;
+}
+
+input {
+  font-weight: inherit;
+  font-size: inherit;
+}
+
+.swiper-pagination > .swiper-pagination-bullet {
+  background-color: #f2f2f2;
+}
+
+.swiper-pagination > .swiper-pagination-bullet-active {
+  background-color: white;
+}
+
+.swiper-button-prev {
+  color: #2c3e50 !important;
+  background-color: rgba(255, 255, 255, 0.7) !important;
+  padding: 2rem 1rem !important;
+  border-radius: 10px;
+}
+
+.swiper-button-next {
+  color: #2c3e50 !important;
+  background-color: rgba(255, 255, 255, 0.7) !important;
+  padding: 2rem 1rem !important;
+  border-radius: 10px;
+}
+
+.swiper-slide {
+  cursor: pointer;
+}
+
+body {
+  background-color: #fdfdfd;
+}
+
+.vs-sidebar__logo {
+  width: unset !important;
+}
+
+.vs-sidebar__item:after {
+  left: -5px !important;
+}
+
+.categories_sidebar .vs-sidebar__logo {
+  padding-top: 5px !important;
+  padding-bottom: 0px !important;
+  min-height: 65px !important;
+}
+
+.vs-card__group-cards::-webkit-scrollbar {
+  display: none;
+}
+
+.vs-card__group-cards {
+  scrollbar-width: none;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+p {
+  color: #2c3e50;
+}
+
+.square .vs-input {
+  border-radius: 0 !important;
+}
+
+.block .vs-input {
+  width: 100% !important;
+}
+
+a {
+  text-decoration: none;
+  color: inherit;
+}
+
+.vs-notification__content__header h4,
+.vs-notification__content__text p {
+  color: unset !important;
+}
+
+.vs-button {
+  color: #042867 !important;
+  font-weight: bold;
+  fill: #042867;
+}
+
+.vs-button--primary {
+  background-color: #d59c04 !important;
+}
+
+.vs-table__tr.isExpand {
+  --vs-gray-1: 248, 248, 255;
+}
+
+.vs-table__expand__td {
+  --vs-gray-1: 248, 248, 255;
+}
+
+hr {
+  border: 0;
+  height: 0;
+  border-top: 1px solid rgba(0, 0, 0, 0.1);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.3);
+}
+
+.vs-switch {
+  max-width: 150px;
 }

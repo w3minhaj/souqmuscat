@@ -31,19 +31,20 @@
                   @keydown.enter="search"
                   placeholder="search for products"
                   class="w-full pl-4 text-sm outline-none focus:outline-none bg-transparent"
+                  v-model="keyword"
                 />
                 <div class="select">
                   <select
                     name=""
                     id=""
-                    x-model="image_type"
+                    v-model="category"
                     class="text-sm outline-none focus:outline-none bg-transparent"
                   >
                     <option value="" selected>All</option>
                     <option
                       v-for="category in categories"
                       :key="category._id"
-                      value="category._id"
+                      :value="category._id"
                     >
                       {{ category.name }}
                     </option>
@@ -77,21 +78,22 @@ export default {
     return {
       products: [],
       categories: [],
-      search: "",
+      keyword: "",
       category: "",
     };
   },
   async fetch() {
-    const category = this.$route.params.category;
-    const search = this.$route.params.search;
     this.products = (
-      await this.$axios.$get(`/api/products/search/${category}/${search}`)
+      await this.$axios.$get(
+        `/api/products/?category=${this.$route.query.category}&keyword=${this.$route.query.keyword}`
+      )
     ).products;
-    this.$axios.$get("/api/category").then((data) => (this.categories = data));
+
+    this.categories = await this.$axios.$get("/api/category");
   },
   methods: {
     search() {
-      this.$router.push(`/search/${category}/${search}`);
+      this.$router.push(`/?category=${this.category}&keyword=${this.keyword}`);
     },
   },
   components: { Product },

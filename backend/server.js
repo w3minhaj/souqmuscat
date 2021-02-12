@@ -3,6 +3,7 @@ import express from 'express'
 import dotenv from 'dotenv'
 import colors from 'colors'
 import morgan from 'morgan'
+import cookieParser from 'cookie-parser'
 import { notFound, errorHandler } from './middleware/errorMiddleware.js'
 import connectDB from './config/db.js'
 
@@ -11,6 +12,8 @@ import userRoutes from './routes/userRoutes.js'
 import orderRoutes from './routes/orderRoutes.js'
 import uploadRoutes from './routes/uploadRoutes.js'
 import categoryRoutes from './routes/categoryRoutes.js'
+import slideRoutes from './routes/slideRoutes.js'
+import topProductRoutes from './routes/topProductRoutes.js'
 
 dotenv.config()
 
@@ -23,6 +26,7 @@ if (process.env.NODE_ENV === 'development') {
 }
 
 app.use(express.json())
+app.use(cookieParser())
 
 app.get('/', (req, res) => {
   res.send('API is running...')
@@ -33,6 +37,8 @@ app.use('/api/users', userRoutes)
 app.use('/api/orders', orderRoutes)
 app.use('/api/upload', uploadRoutes)
 app.use('/api/category', categoryRoutes)
+app.use('/api/slides', slideRoutes)
+app.use('/api/top-products', topProductRoutes)
 
 const __dirname = path.resolve()
 app.use('/api/uploads/', express.static(path.join(__dirname, '/uploads')))

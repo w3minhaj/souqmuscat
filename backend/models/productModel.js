@@ -10,15 +10,6 @@ const productSchema = mongoose.Schema(
       type: String,
       required: true,
     },
-    images: {
-      type: [String],
-      required: true,
-    },
-    category: {
-      type: mongoose.Schema.Types.ObjectId,
-      required: true,
-      ref: 'Category',
-    },
     description: {
       type: String,
       required: true,
@@ -27,15 +18,23 @@ const productSchema = mongoose.Schema(
       type: String,
       required: true,
     },
-    priceInUSD: {
-      type: Number,
+    category: {
+      type: mongoose.Schema.Types.ObjectId,
       required: true,
-      default: 0,
+      ref: 'Category',
     },
-    priceInOMR: {
+    price: {
       type: Number,
       required: true,
-      default: 0,
+    },
+    images: {
+      type: [String],
+      required: true,
+    },
+    featured: {
+      type: Boolean,
+      required: true,
+      default: false,
     },
     shippingCharge: {
       type: [
@@ -43,13 +42,9 @@ const productSchema = mongoose.Schema(
           area: {
             type: String,
             enum: ['area 1', 'area 2', 'area 3'],
-          },
-          priceInUSD: {
-            type: Number,
             required: true,
-            default: 0,
           },
-          priceInOMR: {
+          price: {
             type: Number,
             required: true,
             default: 0,

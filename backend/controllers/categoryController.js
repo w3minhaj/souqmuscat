@@ -7,10 +7,21 @@ const getCategories = asyncHandler(async (req, res) => {
   res.json(categories)
 })
 
+const getCategoryById = asyncHandler(async (req, res) => {
+  const category = await Category.findById(req.params._id)
+
+  if (category) {
+    res.json(category)
+  } else {
+    res.status(404)
+    throw new Error('Category not found')
+  }
+})
+
 const addCategory = asyncHandler(async (req, res) => {
   const { name, nameInArabic } = req.body
 
-  if (name) {
+  if (name && nameInArabic) {
     const category = new Category({
       name,
       nameInArabic,
@@ -36,4 +47,29 @@ const deleteCategory = asyncHandler(async (req, res) => {
   res.status(204).json(deletedCategory)
 })
 
-export { addCategory, getCategories, deleteCategory }
+const editCategory = asyncHandler(async (req, res) => {
+  const { _id } = req.params
+
+  const { name, nameInArabic } = req.body
+
+  const category = await Category.findById({ _id })
+
+  if (category) {
+    category.name = name
+    category.nameInArabic = nameInArabic
+
+    const updatedCategory = await category.save()
+    res.json(updatedCategory)
+  } else {
+    res.status(404)
+    throw new Error('Category not found')
+  }
+})
+
+export {
+  addCategory,
+  getCategories,
+  deleteCategory,
+  editCategory,
+  getCategoryById,
+}
