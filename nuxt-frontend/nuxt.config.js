@@ -2,6 +2,9 @@ import en from "./locales/en.js";
 import ar from "./locales/ar.js";
 
 export default {
+  server: {
+    port: 3000, // default: 3000
+  },
   // Global page headers (https://go.nuxtjs.dev/config-head)
   head: {
     title: "nuxt-frontend",
