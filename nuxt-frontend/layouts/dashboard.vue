@@ -182,7 +182,6 @@ export default {
   watch: {
     $route: {
       handler: function () {
-        console.log(this.$route.path.split("/")[2])
         this.routeName = this.$route.path.split("/")[2].split("-")[0]
       },
       immediate: true,

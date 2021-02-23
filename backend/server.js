@@ -14,6 +14,7 @@ import uploadRoutes from './routes/uploadRoutes.js'
 import categoryRoutes from './routes/categoryRoutes.js'
 import slideRoutes from './routes/slideRoutes.js'
 import topProductRoutes from './routes/topProductRoutes.js'
+import offerProductRoutes from './routes/offerProductRoutes.js'
 
 dotenv.config()
 
@@ -39,9 +40,10 @@ app.use('/api/upload', uploadRoutes)
 app.use('/api/category', categoryRoutes)
 app.use('/api/slides', slideRoutes)
 app.use('/api/top-products', topProductRoutes)
+app.use('/api/offer-product', offerProductRoutes)
 
 const __dirname = path.resolve()
-app.use('/api/uploads/', express.static(path.join(__dirname, '/uploads')))
+app.use('/api/uploads/', express.static(path.join(__dirname, '..', '/uploads')))
 
 app.use(notFound)
 

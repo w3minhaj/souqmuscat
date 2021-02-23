@@ -5,12 +5,7 @@ import User from '../models/userModel.js'
 const protect = asyncHandler(async (req, res, next) => {
   let token
 
-  if (
-    // req.headers.authorization &&
-    // req.headers.authorization.startsWith('Bearer')
-    req.cookies.authcookie &&
-    req.cookies.authcookie.startsWith('Bearer')
-  ) {
+  if (req.cookies.authcookie && req.cookies.authcookie.startsWith('Bearer')) {
     try {
       token = req.cookies.authcookie.split(' ')[1]
 

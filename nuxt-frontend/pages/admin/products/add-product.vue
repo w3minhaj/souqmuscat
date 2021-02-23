@@ -12,8 +12,8 @@
       />
       <vs-input
         v-model="nameInArabic"
-        label="Category Name In Arabic"
-        placeholder="Category Name In Arabic"
+        label="Product Name In Arabic"
+        placeholder="Product Name In Arabic"
         style="margin-top: 25px"
         class="full-input"
         dir="rtl"
@@ -142,11 +142,11 @@
       <p style="padding: 10px 5px">Shipping Charges</p>
       <vs-input
         v-for="area in areas"
-        :key="area.name"
+        :key="area.area"
         type="number"
         v-model="area.price"
-        :label="area.name"
-        style="margin-top: 15px"
+        :label="area.city + ' - ' + area.area"
+        style="margin-top: 25px"
         step="0.01"
         min="0"
       />
@@ -164,6 +164,7 @@
 <script>
 import Dropzone from "nuxt-dropzone";
 import "nuxt-dropzone/dropzone.css";
+import { addresses } from "../../../../shippingAddresses";
 
 export default {
   components: {
@@ -179,11 +180,6 @@ export default {
         maxFilesize: 0.1,
       },
       categories: [],
-      areas: [
-        { area: "area 1", price: 0 },
-        { area: "area 2", price: 0 },
-        { area: "area 3", price: 0 },
-      ],
       name: "",
       nameInArabic: "",
       description: "",
@@ -196,7 +192,7 @@ export default {
   },
   methods: {
     uploadSuccess(response) {
-      if(response.xhr) {
+      if (response.xhr) {
         this.images.push(response.xhr.response);
       }
     },
@@ -221,7 +217,7 @@ export default {
             price: this.price,
             images: this.images,
             featured: this.featured,
-            shippingCharge: this.areas
+            shippingCharge: this.areas,
           },
           {
             headers: {
@@ -232,9 +228,9 @@ export default {
         this.$router.push("/admin/products");
       }
     },
-    removeImage(img){
-      this.images = this.images.filter(image=>image!=img)
-    }
+    removeImage(img) {
+      this.images = this.images.filter((image) => image != img);
+    },
   },
   created: async function () {
     const loading = this.$vs.loading({
@@ -245,6 +241,19 @@ export default {
   },
   mounted() {
     const instance = this.$refs.el.dropzone;
+  },
+  computed: {
+    areas() {
+      const areas = [];
+
+      addresses.forEach((city) => {
+        city.areas.forEach((area) =>
+          areas.push({ area: area, city: city.city, price: 0 })
+        );
+      });
+
+      return areas;
+    },
   },
 };
 </script>

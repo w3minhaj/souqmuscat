@@ -21,6 +21,7 @@ export default {
     { src: "~/plugins/persistedState.client.js" },
     "~/plugins/vuesax.client.js",
     { src: "~/plugins/vue-awesome-swiper.js", mode: "client" },
+    "~/plugins/vue-awesome-countdown.js",
   ],
 
   // Auto import components (https://go.nuxtjs.dev/config-components)

@@ -1,4 +1,5 @@
 import mongoose from 'mongoose'
+import { cities, areas } from '../../shippingAddresses.js'
 
 const productSchema = mongoose.Schema(
   {
@@ -41,7 +42,12 @@ const productSchema = mongoose.Schema(
         {
           area: {
             type: String,
-            enum: ['area 1', 'area 2', 'area 3'],
+            enum: areas,
+            required: true,
+          },
+          city: {
+            type: String,
+            enum: cities,
             required: true,
           },
           price: {
@@ -52,6 +58,10 @@ const productSchema = mongoose.Schema(
         },
       ],
       required: true,
+    },
+    stock: {
+      type: Boolean,
+      default: true,
     },
   },
   {

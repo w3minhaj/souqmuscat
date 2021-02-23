@@ -2,7 +2,7 @@ import asyncHandler from 'express-async-handler'
 import Product from '../models/productModel.js'
 
 const getProducts = asyncHandler(async (req, res) => {
-  const pageSize = 2
+  const pageSize = 20
   const page = Number(req.query.page) || 1
   let q
 
@@ -41,7 +41,7 @@ const getProductById = asyncHandler(async (req, res) => {
 })
 
 const getProductsByCategory = asyncHandler(async (req, res) => {
-  const pageSize = 2
+  const pageSize = 20
   const page = Number(req.query.page) || 1
   const categoryId = req.params.id
 

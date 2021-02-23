@@ -3,19 +3,9 @@ import bcyrpt from 'bcryptjs'
 const users = [
   {
     name: 'Admin User',
-    email: 'admin@example.com',
-    password: bcyrpt.hashSync('123456', 10),
+    email: 'admin@souqmuscat.com',
+    password: bcyrpt.hashSync('64DaTRUC_lfaDROsuspl', 10),
     isAdmin: true,
-  },
-  {
-    name: 'John Doe',
-    email: 'john@example.com',
-    password: bcyrpt.hashSync('123456', 10),
-  },
-  {
-    name: 'Jane Doe',
-    email: 'jane@example.com',
-    password: bcyrpt.hashSync('123456', 10),
   },
 ]
 

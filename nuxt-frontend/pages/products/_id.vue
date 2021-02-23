@@ -18,11 +18,10 @@
             >
               <swiper-slide
                 class="slide"
-                v-for="index in 6"
-                :key="index"
+                v-for="image in product.images"
+                :key="image"
                 :style="{
-                  backgroundImage:
-                    'url(https://source.unsplash.com/random/1800x360)',
+                  backgroundImage: `url(/api/uploads/${image})`,
                 }"
               ></swiper-slide>
               <div
@@ -42,11 +41,10 @@
             >
               <swiper-slide
                 class="slide-1"
-                v-for="index in 6"
-                :key="index"
+                v-for="image in product.images"
+                :key="image"
                 :style="{
-                  backgroundImage:
-                    'url(https://source.unsplash.com/random/1800x360)',
+                  backgroundImage: `url(/api/uploads/${image})`,
                 }"
               ></swiper-slide>
             </swiper>
@@ -61,25 +59,12 @@
         style="padding-left: 45px"
       >
         <div style="padding: 20px" class="product-info">
-          <h1>Product name</h1>
-          <h4 style="color: #65727f">Category name</h4>
+          <h1>{{ product.name }}</h1>
+          <h4 style="color: #65727f">
+            {{ product.category && product.category.name }}
+          </h4>
           <p style="margin-top: 30px">
-            Lorem ipsum dolor sit amet, consectetur adipisicing elit. Doloribus
-            maiores sed aliquam ad, laboriosam dolores a? Vitae voluptas
-            laboriosam enim similique voluptate, deserunt officiis eius, est
-            ipsam sequi consequatur fugit? Iste facilis explicabo laudantium
-            magni unde eligendi magnam, voluptate numquam cumque dolorum,
-            incidunt necessitatibus aliquam consequatur? Obcaecati enim mollitia
-            est.
-          </p>
-          <p>
-            Lorem ipsum dolor sit amet, consectetur adipisicing elit. Doloribus
-            maiores sed aliquam ad, laboriosam dolores a? Vitae voluptas
-            laboriosam enim similique voluptate, deserunt officiis eius, est
-            ipsam sequi consequatur fugit? Iste facilis explicabo laudantium
-            magni unde eligendi magnam, voluptate numquam cumque dolorum,
-            incidunt necessitatibus aliquam consequatur? Obcaecati enim mollitia
-            est.
+            {{ product.description }}
           </p>
           <div
             style="
@@ -90,7 +75,7 @@
             "
           >
             <h4>Price:</h4>
-            <h1 style="margin-left: 5px">50</h1>
+            <h1 style="margin-left: 5px">{{ product.price }}</h1>
             <h4 style="margin-left: 5px">OMR</h4>
           </div>
           <hr />
@@ -149,6 +134,7 @@ export default {
         touchRatio: 0.2,
         slideToClickedSlide: true,
       },
+      product: {}
     };
   },
   mounted() {
@@ -159,6 +145,10 @@ export default {
       swiperThumbs.controller.control = swiperTop;
     });
   },
+  async fetch(){
+    const id = this.$route.params.id
+    this.product = await this.$axios.$get(`/api/products/${id}`)
+  }
 };
 </script>
 

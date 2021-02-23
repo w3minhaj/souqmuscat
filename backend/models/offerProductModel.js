@@ -1,4 +1,5 @@
 import mongoose from 'mongoose'
+import { cities, areas } from '../../shippingAddresses.js'
 
 const offerProductSchema = mongoose.Schema(
   {
@@ -41,7 +42,12 @@ const offerProductSchema = mongoose.Schema(
         {
           area: {
             type: String,
-            enum: ['area 1', 'area 2', 'area 3'],
+            enum: areas,
+            required: true,
+          },
+          city: {
+            type: String,
+            enum: cities,
             required: true,
           },
           price: {
@@ -53,11 +59,17 @@ const offerProductSchema = mongoose.Schema(
       ],
       required: true,
     },
+    expireAt: {
+      type: Date,
+      required: true,
+    },
   },
   {
     timestamps: true,
   }
 )
+
+offerProductSchema.index({ expireAt: 1 }, { expireAfterSeconds: 0 })
 
 const OfferProduct = mongoose.model('OfferProduct', offerProductSchema)
 

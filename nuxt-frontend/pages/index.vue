@@ -12,6 +12,7 @@
           <products-list
             :productsHeading="$t('all_products')"
             :products="products"
+            :offerProduct="offerProduct"
           />
           <vs-pagination
             style="margin-top: 20px"
@@ -46,31 +47,40 @@ export default {
     return {
       products: [],
       pages: 0,
-      page: 1
+      page: 1,
+      offerProduct: {},
     };
   },
   layout: "shop",
-  async fetch(){
-    const page = this.$route.query.page || 1
-    const res = await this.$axios.$get(`/api/products?page=${page}`)
-    this.products = res.products
-    this.pages = res.pages
-    this.page = res.page
+  async fetch() {
+    const page = this.$route.query.page || 1;
+    const res = await this.$axios.$get(`/api/products?page=${page}`);
+    this.products = res.products;
+    this.pages = res.pages;
+    this.page = res.page;
   },
-  watch:{
-    page: function(){
-      this.$router.replace({query:{page: this.page}})
-      this.fetch(this.page)
-    }
+  watch: {
+    page: function () {
+      this.$router.replace({ query: { page: this.page } });
+      this.fetch(this.page);
+    },
   },
   methods: {
-    async fetch(page){
-      const res = await this.$axios.$get(`/api/products?page=${page}`)
-      this.products = res.products
+    async fetch(page) {
+      const res = await this.$axios.$get(`/api/products?page=${page}`);
+      this.products = res.products;
+    },
+  },
+  created() {
+    if (this.page == 1 || this.$route.query.page == 1) {
+      this.$axios.$get(`/api/offer-product`).then((data) => {
+        if (data) {
+          this.offerProduct = data;
+        }
+      });
     }
-  }
+  },
 };
 </script>
 
-<style>
-</style>
+<style></style>

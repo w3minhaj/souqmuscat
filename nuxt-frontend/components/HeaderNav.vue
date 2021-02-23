@@ -249,14 +249,14 @@ a {
   font-size: 17px;
   color: #2c3e50;
 }
-.searchbox-input::-webkit-input-placeholder {
+/* .searchbox-input::-webkit-input-placeholder {
 }
 .searchbox-input:-moz-placeholder {
 }
 .searchbox-input::-moz-placeholder {
 }
 .searchbox-input:-ms-input-placeholder {
-}
+} */
 
 .searchbox-icon,
 .searchbox-submit {

@@ -1,12 +1,66 @@
 <template>
   <div>
     <h2 style="padding: 20px 0; margin-left: 15px">{{ productsHeading }}</h2>
-
     <div class="products-list-container">
+      <vs-card
+        style="min-width: 250px; padding: 0 5px; margin-top: 20px"
+        v-if="showOfferProduct"
+        @click="goToOfferPage(offerProduct._id)"
+      >
+        <template #title>
+          <h3>{{ offerProduct.name }}</h3>
+        </template>
+        <template #img>
+          <img
+            :src="`/api/uploads${offerProduct && offerProduct.images[0]}`"
+            alt=""
+          />
+        </template>
+        <template #text>
+          <h4>{{ offerProduct.price }}</h4>
+        </template>
+        <template #interactions>
+          <vs-button
+            style="
+              background: rgba(var(--vs-danger), 1.9);
+              fill: white;
+              color: white;
+            "
+            shadow
+            danger
+          >
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              width="24"
+              height="24"
+              viewBox="0 0 24 24"
+              style="transform: ; -ms-filter: "
+            >
+              <path
+                d="M20.145,8.27l1.563-1.563l-1.414-1.414L18.586,7c-1.05-0.63-2.274-1-3.586-1c-3.859,0-7,3.14-7,7s3.141,7,7,7s7-3.14,7-7 C22,11.175,21.292,9.517,20.145,8.27z M15,18c-2.757,0-5-2.243-5-5s2.243-5,5-5s5,2.243,5,5S17.757,18,15,18z"
+              ></path>
+              <path
+                d="M14 10H16V14H14zM13 3H17V5H13zM3 8H7V10H3zM3 16H7V18H3zM2 12H5.99V14H2z"
+              ></path>
+            </svg>
+            <span class="" style="margin-left: 5px; color: white">
+              <no-ssr>
+                <vac :end-time="offerProduct.expireAt">
+                  <span slot="process" slot-scope="{ timeObj }">{{
+                    `Offer ends in: ${timeObj.d} days and ${timeObj.h}:${timeObj.m}:${timeObj.s}`
+                  }}</span>
+                  <span slot="finish">Done!</span>
+                </vac>
+              </no-ssr>
+            </span>
+          </vs-button>
+        </template>
+      </vs-card>
       <vs-card
         style="min-width: 250px; padding: 0 5px; margin-top: 20px"
         v-for="product in products"
         :key="product._id"
+        @click="goToProductPage(product._id)"
       >
         <template #title>
           <h3>{{ product.name }}</h3>
@@ -17,7 +71,7 @@
         <template #text>
           <h4>{{ product.price }}</h4>
         </template>
-        <template #interactions>
+        <template v-if="product.featured" #interactions>
           <vs-button class="featured" shadow warn>
             <svg
               xmlns="http://www.w3.org/2000/svg"
@@ -33,6 +87,7 @@
             <span class="span" style="margin-left: 5px"> Featured </span>
           </vs-button>
         </template>
+        <!-- </Nuxt-link> -->
       </vs-card>
     </div>
   </div>
@@ -42,8 +97,25 @@
 export default {
   props: {
     productsHeading: String,
-    products: Array
+    products: Array,
+    offerProduct: Object
   },
+  methods: {
+    goToProductPage(id) {
+      this.$router.push(`/products/${id}`)
+    },
+    goToOfferPage(id) {
+      this.$router.push(`/offers/${id}`)
+    },
+  },
+  computed:{
+    showOfferProduct(){
+      if(this.offerProduct && this.offerProduct.images) {
+        return true
+      }
+      return false
+    }
+  }
 };
 </script>
 

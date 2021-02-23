@@ -11,7 +11,7 @@ const authUser = asyncHandler(async (req, res) => {
     const token = 'Bearer ' + generateToken(user._id)
 
     res.cookie('authcookie', token, {
-      maxAge: 9000000,
+      maxAge: 90000000000,
       httpOnly: true,
       sameSite: 'Lax',
     })

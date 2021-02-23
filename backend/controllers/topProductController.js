@@ -1,5 +1,6 @@
 import asyncHandler from 'express-async-handler'
 import TopProduct from '../models/topProductModel.js'
+import Product from '../models/productModel.js'
 
 const addTopProduct = asyncHandler(async (req, res) => {
   const { product } = req.body
@@ -18,7 +19,16 @@ const addTopProduct = asyncHandler(async (req, res) => {
 })
 
 const getTopProducts = asyncHandler(async (req, res) => {
-  const topProducts = await TopProduct.find({}).populate('product')
+  let topProducts = await TopProduct.find({}).populate('product')
+
+  topProducts.forEach(async (topProduct) => {
+    const product = await Product.findById(TopProduct.product)
+
+    if (!product) {
+      await TopProduct.deleteOne({ _id: topProduct._id })
+      topProducts = await TopProduct.find({}).populate('product')
+    }
+  })
 
   res.json(topProducts)
 })
