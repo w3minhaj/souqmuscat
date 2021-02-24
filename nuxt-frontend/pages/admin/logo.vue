@@ -110,4 +110,31 @@ export default {
 </script>
 
 <style>
+.cls-1 {
+  fill: #092c6a;
+}
+.cls-2 {
+  fill: #042867;
+}
+.cls-3 {
+  fill: #d59c04;
+}
+.cls-4 {
+  fill: #042967;
+}
+.cls-5 {
+  fill: #d59c03;
+}
+.cls-6 {
+  fill: #052968;
+}
+.cls-7 {
+  fill: #d59c05;
+}
+.cls-8 {
+  fill: #082c6a;
+}
+.cls-9 {
+  fill: #092d6a;
+}
 </style>
