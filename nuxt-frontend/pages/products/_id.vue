@@ -103,7 +103,7 @@
 
               <span></span>
             </div>
-            <vs-button dark block relief> Buy Now </vs-button>
+            <vs-button primary block> Buy Now </vs-button>
           </div>
         </div>
       </vs-col>

@@ -95,6 +95,14 @@
         step="0.01"
         min="0"
       />
+      <vs-input
+        type="number"
+        v-model="shippingDays"
+        label="Shipping time in days(0 for within one day)"
+        style="margin-top: 25px"
+        step="1"
+        min="0"
+      />
       <p style="font-size: 0.8rem; padding: 15px 5px">Images</p>
       <div>
         <dropzone
@@ -142,10 +150,10 @@
       <p style="padding: 15px 5px">Shipping Charges</p>
       <vs-input
         v-for="area in areas"
-        :key="area.name"
+        :key="area.area"
         type="number"
         v-model="area.price"
-        :label="area.name"
+        :label="area.city + ' - ' + area.area"
         style="margin-top: 25px"
         step="0.01"
         min="0"
@@ -179,6 +187,7 @@
 <script>
 import Dropzone from "nuxt-dropzone";
 import "nuxt-dropzone/dropzone.css";
+import { addresses } from "../../../../../shippingAddresses";
 
 export default {
   components: {
@@ -194,11 +203,6 @@ export default {
         maxFilesize: 0.1
       },
       categories: [],
-      areas: [
-        { area: "area 1", shippingCharge: 0 },
-        { area: "area 2", shippingCharge: 0 },
-        { area: "area 3", shippingCharge: 0 },
-      ],
       name: "",
       nameInArabic: "",
       description: "",
@@ -207,6 +211,8 @@ export default {
       price: 0,
       images: [],
       featured: false,
+      areas: [],
+      shippingDays: 1
     };
   },
   methods: {
@@ -237,6 +243,7 @@ export default {
             images: this.images,
             featured: this.featured,
             shippingCharge: this.areas,
+            shippingDays: this.shippingDays,
           },
           {
             headers: {

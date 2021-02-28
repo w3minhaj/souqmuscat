@@ -59,6 +59,10 @@ const productSchema = mongoose.Schema(
       ],
       required: true,
     },
+    shippingDays: {
+      type: Number,
+      default: 1,
+    },
     stock: {
       type: Boolean,
       default: true,

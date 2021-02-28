@@ -95,6 +95,14 @@
         step="0.01"
         min="0"
       />
+      <vs-input
+        type="number"
+        v-model="shippingDays"
+        label="Shipping time in days(0 for within one day)"
+        style="margin-top: 25px"
+        step="1"
+        min="0"
+      />
       <p style="font-size: 0.8rem; padding: 15px 5px">Images</p>
       <div>
         <dropzone
@@ -188,6 +196,7 @@ export default {
       price: 0,
       images: [],
       featured: false,
+      shippingDays: 1
     };
   },
   methods: {
@@ -218,6 +227,7 @@ export default {
             images: this.images,
             featured: this.featured,
             shippingCharge: this.areas,
+            shippingDays: this.shippingDays,
           },
           {
             headers: {
