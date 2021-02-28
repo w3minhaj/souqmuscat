@@ -76,6 +76,7 @@ const editProduct = asyncHandler(async (req, res) => {
     images,
     featured,
     shippingCharge,
+    shippingDays,
   } = req.body
 
   const product = await Product.findById({ _id: id })
@@ -90,6 +91,7 @@ const editProduct = asyncHandler(async (req, res) => {
     product.images = images
     product.featured = featured
     product.shippingCharge = shippingCharge
+    product.shippingDays = shippingDays
 
     const updatedProduct = await product.save()
     res.json(updatedProduct)

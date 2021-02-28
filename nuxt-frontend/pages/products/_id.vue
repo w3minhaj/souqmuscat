@@ -59,13 +59,20 @@
         style="padding-left: 45px"
       >
         <div style="padding: 20px" class="product-info">
-          <h1>{{ product.name }}</h1>
+          <h1>
+            {{ $i18n.locale == "en" ? product.name : product.nameInArabic }}
+          </h1>
           <h4 style="color: #65727f">
-            {{ product.category && product.category.name }}
+            {{
+              product.category &&
+              ($i18n.locale == "en"
+                ? product.category.name
+                : product.category.nameInArabic)
+            }}
           </h4>
-          <p style="margin-top: 30px">
-            {{ product.description }}
-          </p>
+          <div style="margin-top: 30px">
+            <p v-for="line in multiLineDescription" :key="line">{{ line }}</p>
+          </div>
           <div
             style="
               display: flex;
@@ -134,7 +141,7 @@ export default {
         touchRatio: 0.2,
         slideToClickedSlide: true,
       },
-      product: {}
+      product: {},
     };
   },
   mounted() {
@@ -145,10 +152,23 @@ export default {
       swiperThumbs.controller.control = swiperTop;
     });
   },
-  async fetch(){
-    const id = this.$route.params.id
-    this.product = await this.$axios.$get(`/api/products/${id}`)
-  }
+  computed: {
+    multiLineDescription() {
+      if (this.product.description) {
+        const desc =
+          this.$i18n.locale == "en"
+            ? this.product.description
+            : this.product.descriptionInArabic;
+        return desc.split("/n");
+      } else {
+        return "Loading..";
+      }
+    },
+  },
+  async fetch() {
+    const id = this.$route.params.id;
+    this.product = await this.$axios.$get(`/api/products/${id}`);
+  },
 };
 </script>
 
