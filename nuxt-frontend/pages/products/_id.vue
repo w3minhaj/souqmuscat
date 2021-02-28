@@ -159,7 +159,7 @@ export default {
           this.$i18n.locale == "en"
             ? this.product.description
             : this.product.descriptionInArabic;
-        return desc.split("/n");
+        return desc.split("\n");
       } else {
         return "Loading..";
       }
